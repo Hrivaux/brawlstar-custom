@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-gradient-primary text-white text-center py-4">
+                    <h3 class="fw-bold">Inscription</h3>
+                    <p class="text-white-50">Rejoignez-nous et profitez des meilleures fonctionnalités de BrawlStars !</p>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(registrationForm, { 'attr': { 'class': 'needs-validation', 'novalidate': 'novalidate' } }) }}
+
+                    <div class="form-group mb-4">
+                        {{ form_label(registrationForm.email, 'Adresse e-mail', { 'label_attr': { 'class': 'form-label fw-semibold' } }) }}
+                        {{ form_widget(registrationForm.email, { 'attr': { 'class': 'form-control form-control-lg', 'placeholder': 'Entrez votre adresse e-mail' } }) }}
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+
+                    <div class="form-group mb-4">
+                        {{ form_label(registrationForm.password, 'Mot de passe', { 'label_attr': { 'class': 'form-label fw-semibold' } }) }}
+                        {{ form_widget(registrationForm.password, { 'attr': { 'class': 'form-control form-control-lg', 'placeholder': 'Entrez un mot de passe sécurisé' } }) }}
+                        {{ form_errors(registrationForm.password) }}
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="submit-spinner"></span>
+                            <span id="submit-text">S'inscrire</span>
+                        </button>
+                    </div>
+
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Validation du formulaire
+(function () {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            } else {
+                // Ajouter un spinner et désactiver le bouton lors de l'envoi
+                const submitButton = form.querySelector('button[type="submit"]');
+                const spinner = document.getElementById('submit-spinner');
+                const submitText = document.getElementById('submit-text');
+                
+                spinner.classList.remove('d-none');
+                submitText.textContent = "En cours...";
+                submitButton.disabled = true;
+            }
+
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+
+<style>
+/* Couleur dégradée pour l'en-tête */
+.bg-gradient-primary {
+    background: linear-gradient(45deg, #007bff, #6610f2);
+}
+
+/* Animation d'apparition */
+.card {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+{% endblock %}
