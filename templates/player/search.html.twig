@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche de Joueur{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4 display-4 font-weight-bold text-primary">Recherche de Joueur</h1>
+
+    <!-- Formulaire de recherche avec un design moderne -->
+    <form method="POST" class="mt-4">
+        <div class="mb-3">
+            <label for="tag" class="form-label">Tag du Joueur (ex: #YUGQLCLQ)</label>
+            <input type="text" id="tag" name="tag" class="form-control form-control-lg" placeholder="Entrez le tag du joueur" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100 btn-lg shadow-lg">Rechercher</button>
+    </form>
+
+    {% if error %}
+        <div class="alert alert-danger mt-4 text-center">{{ error }}</div>
+    {% endif %}
+
+    {% if playerData %}
+        <!-- Profil du joueur avec effet de card shadow -->
+        <div class="card mt-4 shadow-lg border-0 rounded-lg bg-gradient text-light">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <img src="https://brawlify.com/assets/players/{{ playerData.icon.id }}.png" alt="Player Icon" class="rounded-circle me-3" style="width: 100px; height: 100px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                    <div>
+                        <h3 class="card-title mb-1">{{ playerData.name }}</h3>
+                        <p class="card-text text-muted">{{ playerData.tag }}</p>
+                    </div>
+                </div>
+                <hr class="border-light">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="card-text">🏆 Trophées : <strong>{{ playerData.trophies }}</strong></p>
+                        <p class="card-text">🏆 Trophées max : <strong>{{ playerData.highestTrophies }}</strong></p>
+                        <p class="card-text">🎮 Niveau d'expérience : <strong>{{ playerData.expLevel }}</strong></p>
+                        <p class="card-text">💎 Points d'expérience : <strong>{{ playerData.expPoints }}</strong></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="card-text">💥 Victoires 3vs3 : <strong>{{ playerData['3vs3Victories'] }}</strong></p>
+                        <p class="card-text">🏅 Victoires solo : <strong>{{ playerData.soloVictories }}</strong></p>
+                        <p class="card-text">👯‍♂️ Victoires duo : <strong>{{ playerData.duoVictories }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mt-5 mb-4 text-center text-light">Brawlers</h2>
+
+        <!-- Liste des brawlers dans des cartes modernes -->
+        <div class="row">
+            {% for brawler in playerData.brawlers %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0 bg-dark text-light rounded-lg hover-effect">
+                        <img 
+                            src="{{ asset('images/brawlers/' ~ brawler.name|lower ~ '_portrait.png') }}" 
+                            class="card-img-top rounded-top-4" 
+                            alt="{{ brawler.name }}"
+                            style="height: 200px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='{{ asset('images/brawlers/default.png') }}';">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ brawler.name }}</h5>
+                            <p class="card-text">🔥 Power : <strong>{{ brawler.power }}</strong></p>
+                            <p class="card-text">🏅 Rank : <strong>{{ brawler.rank }}</strong></p>
+                            <p class="card-text">🏆 Trophées : <strong>{{ brawler.trophies }}</strong></p>
+                            <p class="card-text">🏆 Trophées max : <strong>{{ brawler.highestTrophies }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

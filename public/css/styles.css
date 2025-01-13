@@ -1,0 +1,82 @@
+/* Style global */
+body {
+  background-color: #1f1f2e;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Formulaire de recherche */
+.form-control {
+  border-radius: 10px;
+  border: 2px solid #4caf50;
+  background-color: #333;
+  color: white;
+}
+
+/* Bouton de recherche */
+.btn {
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 12px;
+  background-color: #4caf50;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Cartes du joueur */
+.card {
+  border-radius: 15px;
+  background: linear-gradient(145deg, #20232a, #353a46);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet au survol des cartes */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Titre et description dans les cartes */
+.card-title {
+  font-size: 22px;
+  color: #4caf50;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Effet d'ombre sur l'avatar du joueur */
+img.rounded-circle {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Section des brawlers */
+h2 {
+  font-size: 28px;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Gestion des erreurs */
+.alert-danger {
+  background-color: #ff4e4e;
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+/* Effet d'ombre et survol des brawlers */
+.hover-effect:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}

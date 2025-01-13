@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Composition des Brawlers{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center text-white">Composition des Brawlers</h1>
+
+    <!-- Compteur de Brawlers -->
+    <div class="alert alert-info text-center">
+        Glissez-déposez des brawlers dans les cases ci-dessous.
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <h3 class="text-center text-white">Case 1</h3>
+            <div class="composition-case" id="case1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p class="text-center">Déposez un Brawler ici</p>
+            </div>
+        </div>
+        <div class="col">
+            <h3 class="text-center text-white">Case 2</h3>
+            <div class="composition-case" id="case2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p class="text-center">Déposez un Brawler ici</p>
+            </div>
+        </div>
+        <div class="col">
+            <h3 class="text-center text-white">Case 3</h3>
+            <div class="composition-case" id="case3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p class="text-center">Déposez un Brawler ici</p>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mb-4 text-center text-white">Liste des Brawlers</h3>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for brawler in brawlers %}
+            <div class="col">
+                <div class="card h-100 shadow-lg rounded-4" id="brawler-{{ brawler.id }}" draggable="true" ondragstart="drag(event)">
+                    <img 
+                        src="{{ asset('images/brawlers/' ~ brawler.name|lower ~ '_portrait.png') }}" 
+                        class="card-img-top rounded-top-4" 
+                        alt="{{ brawler.name }}"
+                        onerror="this.onerror=null;this.src='{{ asset('images/brawlers/default.png') }}';">
+
+                    <div class="card-body bg-dark text-white rounded-bottom-4">
+                        <h5 class="card-title text-center text-uppercase fw-bold">{{ brawler.name }}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // Fonction pour permettre le glissement dans la case
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    // Fonction pour manipuler l'événement du dragstart
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    // Fonction pour gérer l'événement de drop
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var draggedElement = document.getElementById(data);
+        var targetCase = ev.target;
+
+        // Vérifiez si l'endroit où l'élément a été déposé est une "case"
+        if (targetCase.classList.contains('composition-case')) {
+            // Ajouter l'élément dans la case
+            targetCase.innerHTML = "<p class='text-center'>" + draggedElement.querySelector('.card-body .card-title').textContent + "</p>";
+            targetCase.appendChild(draggedElement);
+        }
+    }
+</script>
+
+{% endblock %}
