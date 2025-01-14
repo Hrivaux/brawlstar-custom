@@ -80,3 +80,23 @@ h2 {
   transform: translateY(-10px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
+
+.dropzone {
+  border: 2px dashed #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.dropzone.dragover {
+  background-color: #e0f7fa2c;
+  border-color: #00bcd4;
+}
+
+.draggable.dragging {
+  opacity: 0.7;
+  cursor: grabbing;
+}
+
+.dropzone.filled {
+  background-color: #f8d7da41;
+  border-color: #f5c2c7;
+}

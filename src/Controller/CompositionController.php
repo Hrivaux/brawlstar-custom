@@ -1,13 +1,9 @@
 <?php
 
-// src/Controller/CompositionController.php
-
-// Controller
 namespace App\Controller;
 
 use App\Service\BrawlStarsApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,13 +17,13 @@ class CompositionController extends AbstractController
     }
 
     #[Route('/composition', name: 'composition')]
-    public function composition(Request $request): Response
+    public function index(): Response
     {
         try {
             $brawlers = $this->brawlStarsApiService->fetchBrawlers();
         } catch (\Exception $e) {
-            $this->addFlash('error', 'Erreur lors de la récupération des brawlers.');
             $brawlers = [];
+            $this->addFlash('error', $e->getMessage());
         }
 
         return $this->render('composition/index.html.twig', [
