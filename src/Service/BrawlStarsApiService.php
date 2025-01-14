@@ -15,7 +15,7 @@ class BrawlStarsApiService
         $this->apiToken = $_ENV['BRAWLSTARS_API_TOKEN'] ?? '';
     }
 
-    
+
     public function fetchBrawlers(): array
     {
         $apiUrl = 'https://api.brawlstars.com/v1/brawlers';
