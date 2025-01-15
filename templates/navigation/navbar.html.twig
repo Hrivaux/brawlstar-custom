@@ -1,13 +1,21 @@
 <nav class="navbar">
     <div class="container">
         <a href="/" class="navbar-logo">
-            <img src="/assets/images/brawlstars-logo.png" alt="Brawl Stars" />
+            <img src="{{ asset('images/logo.png') }}" alt="Logo Brawl Stars" />
         </a>
         <ul class="navbar-links">
+            <li><a href="/">Accueil</a></li>
             <li><a href="/brawlers">Brawlers</a></li>
-            <li><a href="/tiers">Tiers</a></li>
-            <li><a href="/guides">Guides</a></li>
-            <li><a href="/contact">Contact</a></li>
+            {% if app.user %}
+                <li><a href="/profile">Profil</a></li>
+                <li>
+                    <a href="/logout">Déconnexion</a>
+                </li>
+            {% else %}
+                <li><a href="/login">Connexion</a></li>
+                <li><a href="{{ path('app_register') }}">Inscription</a></li>
+            {% endif %}
         </ul>
+            
     </div>
 </nav>
