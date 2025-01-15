@@ -8,11 +8,11 @@
 
     <!-- Compteur de Brawlers -->
     <div class="alert alert-info text-center">
-        Il y a actuellement <strong>{{ brawlers|length }}</strong> Brawlers disponibles.
+        Il y a actuellement <strong>{{ pagination.getTotalItemCount }}</strong> Brawlers disponibles.
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for brawler in brawlers %}
+        {% for brawler in pagination.items %}
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <!-- Affichage de l'image du Brawler -->
@@ -40,6 +40,10 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ knp_pagination_render(pagination) }}
     </div>
 </div>
 {% endblock %}
