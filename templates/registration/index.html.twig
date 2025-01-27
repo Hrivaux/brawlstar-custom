@@ -19,9 +19,15 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        {{ form_label(registrationForm.password, 'Mot de passe', { 'label_attr': { 'class': 'form-label fw-semibold' } }) }}
-                        {{ form_widget(registrationForm.password, { 'attr': { 'class': 'form-control form-control-lg', 'placeholder': 'Entrez un mot de passe sécurisé' } }) }}
-                        {{ form_errors(registrationForm.password) }}
+                        {{ form_label(registrationForm.plainPassword, 'Mot de passe', { 'label_attr': { 'class': 'form-label fw-semibold' } }) }}
+                        {{ form_widget(registrationForm.plainPassword, { 'attr': { 'class': 'form-control form-control-lg', 'placeholder': 'Entrez un mot de passe sécurisé' } }) }}
+                        {{ form_errors(registrationForm.plainPassword) }}
+                    </div>
+
+                    <div class="form-group mb-4">
+                        {{ form_label(registrationForm.playerTag, 'Tag de joueur', { 'label_attr': { 'class': 'form-label fw-semibold' } }) }}
+                        {{ form_widget(registrationForm.playerTag, { 'attr': { 'class': 'form-control form-control-lg', 'placeholder': 'Entrez votre tag de joueur (ex. #123ABC)' } }) }}
+                        {{ form_errors(registrationForm.playerTag) }}
                     </div>
 
                     <div class="form-group text-center">

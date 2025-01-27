@@ -14,7 +14,7 @@
     <section class="mt-5">
         <div class="row justify-content-center">
             <div class="col-md-4 col-lg-3">
-                <div class="card shadow border-0 bg-dark text-white">
+                <div class="card shadow border-0">
                     <div class="card-body text-center">
                         <i class="bi bi-people display-4 text-primary"></i>
                         <h5 class="card-title mt-3">Liste des Brawlers</h5>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-lg-3">
-                <div class="card shadow border-0 bg-dark text-white">
+                <div class="card shadow border-0">
                     <div class="card-body text-center">
                         <i class="bi bi-layout-text-sidebar-reverse display-4 text-success"></i>
                         <h5 class="card-title mt-3">Créer une Composition</h5>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-lg-3">
-                <div class="card shadow border-0 bg-dark text-white">
+                <div class="card shadow border-0">
                     <div class="card-body text-center">
                         <i class="bi bi-search display-4 text-warning"></i>
                         <h5 class="card-title mt-3">Rechercher un Joueur</h5>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-lg-3">
-                <div class="card shadow border-0 bg-dark text-white">
+                <div class="card shadow border-0">
                     <div class="card-body text-center">
                         <i class="bi bi-trophy display-4 text-info"></i>
                         <h5 class="card-title mt-3">Classements</h5>
@@ -58,7 +58,13 @@
 
     <!-- Auth Section -->
     <section class="mt-5 text-center">
-        <a href="{{ path('app_register') }}" class="btn btn-outline-secondary btn-lg me-2">Inscription</a>
+        {% if app.user %}
+            <a href="{{ path('user_profile') }}" class="btn btn-outline-primary btn-lg me-2">Mon Profil</a>
+            <a href="{{ path('logout') }}" class="btn btn-outline-danger btn-lg me-2">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('login') }}" class="btn btn-outline-primary btn-lg me-2">Connexion</a>
+            <a href="{{ path('app_register') }}" class="btn btn-outline-secondary btn-lg me-2">Inscription</a>
+        {% endif %}
     </section>
 </div>
 {% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <!-- Profil Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Bienvenue, {{ playerData.name }}</h1>
+        <p class="text-muted">#{{ playerData.tag }}</p>
+        <p class="lead">Vous êtes prêt pour la prochaine bataille !</p>
+    </div>
+
+    <!-- Statistiques Générales -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title">Statistiques</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Trophées :</strong> {{ playerData.trophies }}</li>
+                        <li class="list-group-item"><strong>Plus haut Trophées :</strong> {{ playerData.highestTrophies }}</li>
+                        <li class="list-group-item"><strong>Victoire 3vs3 :</strong> {{ playerData['3vs3Victories'] }}</li>
+                        <li class="list-group-item"><strong>Victoire Solo :</strong> {{ playerData.soloVictories }}</li>
+                        <li class="list-group-item"><strong>Victoire Duo :</strong> {{ playerData.duoVictories }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Club Section -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title">Club</h3>
+                </div>
+                <div class="card-body">
+                    {% if playerData.club %}
+                        <p><strong>Nom :</strong> {{ playerData.club.name }}</p>
+                    {% else %}
+                        <p>Aucun club.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphique -->
+    <div class="card mb-5 shadow-sm">
+        <div class="card-header bg-warning text-white">
+            <h3 class="card-title">Graphique des Statistiques</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="statsChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Brawlers Section -->
+    <h3 class="mb-4">Vos Brawlers</h3>
+    <div class="row">
+        {% for brawler in playerData.brawlers %}
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ brawler.name }}</h5>
+                        <p class="text-muted">Puissance : {{ brawler.power }}</p>
+                        <p>Trophées : {{ brawler.trophies }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Derniers Combats -->
+    <h3 class="mt-5">Derniers Combats</h3>
+    <div class="table-responsive">
+        <table class="table table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Mode</th>
+                    <th>Carte</th>
+                    <th>Résultat</th>
+                    <th>Équipe</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for battle in battleLog %}
+                    <tr>
+                        <td>{{ battle.battleTimeFormatted|default('Non disponible') }}</td>
+                        <td>{{ battle.battle.mode|capitalize }}</td>
+                        <td>{{ battle.event.map|default('Carte inconnue') }}</td>
+                        <td>
+                            <span class="badge {% if battle.battle.result == 'victory' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ battle.battle.result|capitalize|default('Inconnu') }}
+                            </span>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled">
+                                {% for player in battle.battle.teams[0] %}
+                                    <li>{{ player.name }} ({{ player.brawler.name }})</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('statsChart').getContext('2d');
+    const statsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Trophées', 'Plus haut Trophées', '3vs3 Victoires', 'Solo Victoires', 'Duo Victoires'],
+            datasets: [{
+                label: 'Statistiques',
+                data: [
+                    {{ playerData.trophies }},
+                    {{ playerData.highestTrophies }},
+                    {{ playerData['3vs3Victories'] }},
+                    {{ playerData.soloVictories }},
+                    {{ playerData.duoVictories }}
+                ],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
