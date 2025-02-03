@@ -60,6 +60,11 @@
     <section class="mt-5 text-center">
         {% if app.user %}
             <a href="{{ path('user_profile') }}" class="btn btn-outline-primary btn-lg me-2">Mon Profil</a>
+            
+            {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin') }}" class="btn btn-warning">Administration</a>
+{% endif %}
+
             <a href="{{ path('logout') }}" class="btn btn-outline-danger btn-lg me-2">Déconnexion</a>
         {% else %}
             <a href="{{ path('login') }}" class="btn btn-outline-primary btn-lg me-2">Connexion</a>

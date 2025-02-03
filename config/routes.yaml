@@ -1,12 +1,16 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
 
 login:
-    path: /login
-    controller: App\Controller\LoginController::login
+  path: /login
+  controller: App\Controller\LoginController::login
 
 logout:
-    path: /logout
+  path: /logout
+
+admin_dashboard:
+  path: /admin
+  controller: App\Controller\Admin\DashboardController::index
