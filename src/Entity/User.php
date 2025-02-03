@@ -30,6 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
+    private ?string $plainPassword = null;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $username = null;
 
@@ -148,7 +150,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // Si des informations sensibles étaient temporairement stockées, les effacer ici.
     }
-    private ?string $plainPassword = null;
 
     public function getPlainPassword(): ?string
     {

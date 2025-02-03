@@ -8,6 +8,7 @@
             <li><a href="/brawlers">Brawlers</a></li>
             {% if app.user %}
                 <li><a href="/profile">Profil</a></li>
+                <li><a href="/profile/edit">Modifier mon profil</a></li>
                 <li>
                     <a href="/logout">Déconnexion</a>
                 </li>
@@ -16,6 +17,5 @@
                 <li><a href="{{ path('app_register') }}">Inscription</a></li>
             {% endif %}
         </ul>
-            
     </div>
 </nav>
