@@ -1,0 +1,34 @@
+readme:
+title: "BrawlStars Custom - Guide d'Administration"
+description: "Ce projet utilise Symfony et EasyAdminBundle pour gérer les utilisateurs et administrateurs."
+
+installation:
+steps: - "Cloner le projet :" - "git clone https://github.com/ton-repo/brawlstar-custom.git" - "cd brawlstar-custom" - "Installer les dépendances :" - "composer install" - "npm install" - "Configurer la base de données : Modifier le fichier .env avec les accès MySQL" - "DATABASE_URL='mysql://root:password@127.0.0.1:3306/brawlstar?serverVersion=8.0'" - "Créer la base et appliquer les migrations :" - "php bin/console doctrine:database:create" - "php bin/console doctrine:migrations:migrate" - "Lancer le serveur :" - "symfony server:start"
+
+gestion_utilisateurs:
+creation_admin:
+command: "php bin/console app:create-admin"
+description: "Créer un compte administrateur avec ROLE_ADMIN."
+creation_manuelle:
+hash_password: "php bin/console security:hash-password"
+insert_sql: "INSERT INTO user (email, password, roles, created_at) VALUES ('admin@example.com', 'HASHED_PASSWORD_ICI', '["ROLE_ADMIN"]', NOW());"
+
+acces_admin:
+url: "http://localhost:8000/admin"
+role: "Seuls les utilisateurs avec ROLE_ADMIN peuvent y accéder."
+
+roles:
+format: "Les rôles sont stockés sous forme de tableau JSON en base de données."
+example: '["ROLE_USER", "ROLE_ADMIN"]'
+
+commandes_utiles:
+cache_clear: "php bin/console cache:clear"
+debug_routes: "php bin/console debug:router"
+start_server: "symfony server:start"
+
+problemes_courants:
+admin_inaccessible:
+verification: "Vérifiez que votre utilisateur a bien ROLE_ADMIN."
+solution: - "Vider le cache : php bin/console cache:clear" - "Redémarrer Symfony : symfony server:start"
+
+conclusion: "Le projet est maintenant prêt à être utilisé ! Bon développement ! 🚀"
