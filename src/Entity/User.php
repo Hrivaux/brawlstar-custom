@@ -23,8 +23,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true, unique: true)]
     private ?string $playerTag = null;
 
-    #[ORM\Column(type: 'json')]
-    private array $roles = [];
+    #[ORM\Column(type: 'json', options: ['default' => '["ROLE_USER"]'])]
+    private array $roles = ['ROLE_USER'];
+
 
     #[ORM\Column(type: 'string')]
     private ?string $password = null;
@@ -35,8 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false, options: ["default" => "CURRENT_TIMESTAMP"])]
     private \DateTimeInterface $createdAt;
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
@@ -78,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        $roles[] = 'ROLE_USER'; // Ajout automatique du rôle par défaut
+        $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
 
